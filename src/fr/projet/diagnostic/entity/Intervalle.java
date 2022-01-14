@@ -5,11 +5,15 @@ public class Intervalle {
     public int idIntervalle;
     public int bi;
     public int bs;
-
+    
     public Intervalle(int idIntervalle, int bi, int bs) {
         this.idIntervalle = idIntervalle;
         this.bi = bi;
         this.bs = bs;
+    }
+    
+    public Intervalle(int idIntervalle) {
+    	this(idIntervalle, 0, 0);
     }
 
     public int getIdIntervalle() {

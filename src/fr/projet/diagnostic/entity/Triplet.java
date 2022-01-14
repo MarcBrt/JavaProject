@@ -1,14 +1,12 @@
 package fr.projet.diagnostic.entity;
 
-import java.util.ArrayList;
-
 public class Triplet {
     public int idTriplet;
     public String er;
     public String ec;
-    public ArrayList<Intervalle> ct;
+    public Intervalle ct;
 
-    public Triplet(int id, String eveRef, String eveContrainte, ArrayList<Intervalle> contrainteTemp) {
+    public Triplet(int id, String eveRef, String eveContrainte, Intervalle contrainteTemp) {
         if( eveRef.startsWith("In") || eveRef.startsWith("RE") || eveRef.startsWith("FE") ) {
             this.idTriplet = id;
             this.er = eveRef;
@@ -41,11 +39,11 @@ public class Triplet {
         this.ec = ec;
     }
 
-    public ArrayList<Intervalle> getCt() {
+    public Intervalle getCt() {
         return ct;
     }
 
-    public void setCt(ArrayList<Intervalle> ct) {
+    public void setCt(Intervalle ct) {
         this.ct = ct;
     }
 }

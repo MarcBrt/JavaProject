@@ -1,10 +1,19 @@
 package fr.projet.diagnostic;
 
+import fr.projet.diagnostic.entity.Etat;
+
 public class Cas {
     public int id;
     public Triplet p;
 
-    public int getId() {
+    public Cas(int id, Triplet p, Etat s) {
+		super();
+		this.id = id;
+		this.p = p;
+		this.s = s;
+	}
+
+	public int getId() {
         return id;
     }
 

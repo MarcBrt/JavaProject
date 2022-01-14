@@ -1,16 +1,17 @@
 package fr.projet.diagnostic.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cas {
     public int id;
-    public ArrayList<Triplet> p;
+    public List<Triplet> p = new ArrayList<Triplet>();
     public Etat s;
 
-    public Cas(int id, ArrayList<Triplet> p, Etat s) {
-        if (p.size() >= 2) {
+    public Cas(int id, List<Triplet> triplets, Etat s) {
+        if (triplets.size() >= 2) {
             this.id = id;
-            this.p = p;
+            this.p = triplets;
             this.s = s;
         }
 	}
@@ -23,7 +24,7 @@ public class Cas {
         this.id = id;
     }
 
-    public ArrayList<Triplet> getP() {
+    public List<Triplet> getP() {
         return p;
     }
     

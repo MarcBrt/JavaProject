@@ -1,4 +1,4 @@
-package fr.projet.diagnostic.util;
+package fr.projet.diagnostic;
 
 public class SimilarityCore {
 

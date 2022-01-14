@@ -8,10 +8,11 @@ public class Cas {
     public Etat s;
 
     public Cas(int id, ArrayList<Triplet> p, Etat s) {
-		super();
-		this.id = id;
-		this.p = p;
-		this.s = s;
+        if (p.size() >= 2) {
+            this.id = id;
+            this.p = p;
+            this.s = s;
+        }
 	}
 
 	public int getId() {

@@ -19,6 +19,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		List<Cas> cass = analyse();		
+		System.out.println(cass.size());
 		HashMap<Integer, List<Cas>> groupes = new HashMap<Integer, List<Cas>>();
 	
 		for (Cas cas: cass) {

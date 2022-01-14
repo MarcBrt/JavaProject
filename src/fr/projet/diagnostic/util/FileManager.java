@@ -1,15 +1,14 @@
 package fr.projet.diagnostic.util;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.TreeMap;	
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;	
 
 public class FileManager {
 
@@ -20,12 +19,26 @@ public class FileManager {
 		this.file = file; 
 	}
 	
-	public void open() throws FileNotFoundException {
+	private void open() throws FileNotFoundException {
 		this.br = new BufferedReader(new FileReader(this.file));
 	}
 	
 	public String readLine() throws IOException {
+		
+		if (this.br == null) {
+			this.open();
+		}
+		
 		 return br.readLine();
+	}
+	
+	public List<String> readAllLine() throws IOException {
+		
+		if (this.br == null) {
+			this.open();
+		}
+	
+		return this.br.lines().collect(Collectors.toList());
 	}
 	
 }

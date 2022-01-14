@@ -1,6 +1,4 @@
-package fr.projet.diagnostic;
-
-import fr.projet.diagnostic.entity.Etat;
+package fr.projet.diagnostic.entity;
 
 public class Cas {
     public int id;

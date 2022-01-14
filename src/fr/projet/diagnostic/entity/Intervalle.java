@@ -1,4 +1,4 @@
-package fr.projet.diagnostic;
+package fr.projet.diagnostic.entity;
 
 public class Intervalle {
 

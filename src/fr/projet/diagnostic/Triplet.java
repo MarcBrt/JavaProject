@@ -7,7 +7,12 @@ public class Triplet {
     public Intervalle ct;
 
     public Triplet(int id, String eveRef, String eveContrainte, Intervalle contrainteTemp) {
-        if( eveRef )
+        if( eveRef == "In" || eveRef == "RE" || eveRef == "FE" ) {
+            this.idTriplet = id;
+            this.er = eveRef;
+            this.ec = eveContrainte;
+            this.ct = contrainteTemp;
+        }
     }
 
     public int getIdTriplet() {

@@ -6,6 +6,12 @@ public class Intervalle {
     public int bi;
     public int bs;
 
+    public Intervalle(int idIntervalle, int bi, int bs) {
+        this.idIntervalle = idIntervalle;
+        this.bi = bi;
+        this.bs = bs;
+    }
+
     public int getIdIntervalle() {
         return idIntervalle;
     }

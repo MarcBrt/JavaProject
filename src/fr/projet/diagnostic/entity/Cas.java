@@ -1,10 +1,13 @@
 package fr.projet.diagnostic.entity;
 
+import java.util.ArrayList;
+
 public class Cas {
     public int id;
-    public Triplet p;
+    public ArrayList<Triplet> p;
+    public Etat s;
 
-    public Cas(int id, Triplet p, Etat s) {
+    public Cas(int id, ArrayList<Triplet> p, Etat s) {
 		super();
 		this.id = id;
 		this.p = p;
@@ -19,11 +22,11 @@ public class Cas {
         this.id = id;
     }
 
-    public Triplet getP() {
+    public ArrayList<Triplet> getP() {
         return p;
     }
 
-    public void setP(Triplet p) {
+    public void setP(ArrayList<Triplet> p) {
         this.p = p;
     }
 
@@ -34,6 +37,4 @@ public class Cas {
     public void setS(Etat s) {
         this.s = s;
     }
-
-    public Etat s;
 }

@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-MiniProjet
-=======
-# JavaProject
->>>>>>> aa18c81 (Initial commit)
+HEAD
+> JavaProject
+> Marc Bertu
+> Maël Roy

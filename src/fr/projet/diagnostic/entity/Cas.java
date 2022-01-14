@@ -26,6 +26,10 @@ public class Cas {
     public ArrayList<Triplet> getP() {
         return p;
     }
+    
+    public int tripletCount() {
+    	return p.size();
+    }
 
     public void setP(ArrayList<Triplet> p) {
         this.p = p;

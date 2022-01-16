@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import fr.projet.diagnostic.entity.Intervalle;
 import fr.projet.diagnostic.entity.Triplet;
 import fr.projet.diagnostic.util.FileManager;

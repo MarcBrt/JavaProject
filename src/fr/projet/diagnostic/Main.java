@@ -1,12 +1,13 @@
 package fr.projet.diagnostic;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import fr.projet.diagnostic.entity.Cas;
 import fr.projet.diagnostic.entity.Intervalle;
 import fr.projet.diagnostic.entity.NotIdentified;
 import fr.projet.diagnostic.entity.Triplet;
@@ -16,34 +17,41 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		List<Cas> cass = analyse();
+		List<Cas> cass = analyse("regle.txt");
 		System.out.println(cass.size());
-		HashMap<Integer, List<Cas> groupes = new HashMap<Integer, List<Cas>>();
+		HashMap<Integer, List<Cas>> groupes = new HashMap<>();
 
 		for (Cas cas: cass) {
 			int count = cas.tripletCount();
 			if (!groupes.containsKey(count)) {
-				groupes.put(count, new ArrayList<Cas>());
+				groupes.put(count, new ArrayList<>());
 			}
 			groupes.get(count).add(cas);
 		}
 
-		for (Entry<Integer, List<Cas>> entry : groupes.entrySet()) {
-			System.out.println(entry.getKey() + ": " + entry.getValue().size());
-		}
+		for (Map.Entry<Integer, List<Cas>> entry : groupes.entrySet()) { System.out.println(entry.getKey() + ": " + entry.getValue().size()); }
+
+		List<Cas> testedCase = analyse("test.txt");
+
+		// Ajout de l'instance du calculateur de similarite
+		SimilarityCore similarityCore = new SimilarityCore(groupes.get(testedCase.get(0).tripletCount()), testedCase.get(0));
+
+		System.out.println("Similarite des cas par cas: \n");
+
+		similarityCore.tableau.forEach(System.out::println);
 
 	}
 
-	public static List<Cas> analyse() {
-		FileManager fm = new FileManager(new File("regle.txt"));
+	public static List<Cas> analyse(String filename) {
+		FileManager fm = new FileManager(new File(filename));
 		int cptTriplet = 0;
-		List<Cas> cass = new ArrayList<Cas>();
+		List<Cas> cass = new ArrayList<>();
 		try {
 			List<String> lines = fm.readAllLine();
 			System.out.println(lines.get(0));
 
 			for (String line : lines) {
-				List<Triplet> triplets = new ArrayList<Triplet>();
+				List<Triplet> triplets = new ArrayList<>();
 				int cptIntervale = 0;
 				line = line.replace(" ", "");
 				line = line.replace("(", "");
@@ -70,8 +78,6 @@ public class Main {
 				cass.add(cas);
 			}
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

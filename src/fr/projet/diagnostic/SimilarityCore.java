@@ -9,31 +9,10 @@ import java.util.List;
 import fr.projet.diagnostic.entity.Intervalle;
 
 public class SimilarityCore {
-
-	public int calculPos(int verif, Intervalle bdd) {
-		if (verif >= bdd.getBi() && verif <= bdd.getBs()) {
-			return 0;
-		} else {
-			return Math.min(Math.abs(verif - bdd.getBi()), Math.abs(verif - bdd.getBs()));
-		}
-	}
-
-	public int calculMinPos(Intervalle int1, Intervalle int2) {
-		return Math.min(this.calculPos(int1.getBi(), int2), this.calculPos(int2.getBs(), int2));
-	}
-
-	public int calculIpos(Intervalle verif, Intervalle bdd) {
-
-		if (verif.getBi() >= Math.max(verif.getBi(), bdd.getBi()) && verif.getBi() <= Math.min(verif.getBs(), bdd.getBs())) {
-			return 0;
-		} else {
-			return this.calculMinPos(verif, bdd);
-		}
-	}
 	
     public List<Float> tableau = new ArrayList<>();
 
-    public SimilarityCore(ArrayList<Cas> similarityCase, Cas newCase) {
+    public SimilarityCore(List<Cas> similarityCase, Cas newCase) {
         for(Cas testedCase: similarityCase) {
             if ( testedCase.tripletCount() == newCase.tripletCount() ) {
                 tableau.add( distance(testedCase.p, newCase.p) );
@@ -44,19 +23,22 @@ public class SimilarityCore {
         }
     }
 
-    private float distance(ArrayList<Triplet> simiTriplets, ArrayList<Triplet> newCaseTriplets) {
+    private float distance(List<Triplet> simiTriplets, List<Triplet> newCaseTriplets) {
         float sum = 0;
+        int mt = 3 * newCaseTriplets.size();
+
         for(int i = 0; i < newCaseTriplets.size(); i++) {
             sum += distanceTriplet( simiTriplets.get(i), newCaseTriplets.get(i));
         }
 
-        return sum/6;
+        return sum/mt;
     }
 
     private float distanceTriplet(Triplet simiTriplet, Triplet newCaseTriplet) {
+        float dateMax = 100;
         return distanceEvenementEr( simiTriplet.er, newCaseTriplet.er) +
                 distanceEvenementEc( simiTriplet.ec, newCaseTriplet.ec) +
-                ( calculIpos(simiTriplet.ct, newCaseTriplet.ct) / 100 );
+                ( calculIpos(simiTriplet.ct, newCaseTriplet.ct) / dateMax );
     }
 
     private short distanceEvenementEr(String simiER, String newCaseER) {
@@ -72,4 +54,29 @@ public class SimilarityCore {
         }
         return 1;
     }
+
+    public int calculIpos(Intervalle verif, Intervalle bdd) {
+
+        if (verif.getBi() >= Math.max(verif.getBi(), bdd.getBi()) && verif.getBi() <= Math.min(verif.getBs(), bdd.getBs())) {
+            return 0;
+        } else {
+            return this.calculMinPos(verif, bdd);
+        }
+    }
+
+    public int calculMinPos(Intervalle int1, Intervalle int2) {
+        return Math.min(this.calculPos(int1.getBi(), int2), this.calculPos(int2.getBs(), int2));
+    }
+
+    public int calculPos(int verif, Intervalle bdd) {
+        if (verif >= bdd.getBi() && verif <= bdd.getBs()) {
+            return 0;
+        } else {
+            return Math.min(Math.abs(verif - bdd.getBi()), Math.abs(verif - bdd.getBs()));
+        }
+    }
+
+
+
+
 }

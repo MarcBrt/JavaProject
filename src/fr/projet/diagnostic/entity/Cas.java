@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Cas {
     public int id;
-    public List<Triplet> p = new ArrayList<Triplet>();
+    public List<Triplet> p = new ArrayList<>();
     public Etat s;
 
     public Cas(int id, List<Triplet> triplets, Etat s) {

@@ -1,21 +1,20 @@
 package fr.projet.diagnostic;
 
-import fr.projet.diagnostic.entity.Cas;
-import fr.projet.diagnostic.entity.Triplet;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
+import fr.projet.diagnostic.entity.Cas;
 import fr.projet.diagnostic.entity.Intervalle;
+import fr.projet.diagnostic.entity.Triplet;
 
 public class SimilarityCore {
 
-	public List<Float> tableau = new ArrayList<>();
+	public TreeMap<Integer, Float> tableau = new TreeMap<Integer, Float>();
 
 	public SimilarityCore(List<Cas> similarityCase, Cas newCase) {
 		for (Cas testedCase : similarityCase) {
 			if (testedCase.tripletCount() == newCase.tripletCount()) {
-				tableau.add(distance(testedCase.p, newCase.p));
+				tableau.put(testedCase.id, distance(testedCase.p, newCase.p));
 			} else {
 				throw new Error("Size not equal");
 			}

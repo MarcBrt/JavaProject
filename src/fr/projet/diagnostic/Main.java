@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import fr.projet.diagnostic.entity.Cas;
+import fr.projet.diagnostic.entity.Failing;
 import fr.projet.diagnostic.entity.Intervalle;
 import fr.projet.diagnostic.entity.NotIdentified;
 import fr.projet.diagnostic.entity.Triplet;
@@ -44,6 +45,24 @@ public class Main {
 		for (Entry<Integer, Float> entry : similarityCore.tableau.entrySet()) {
 			System.out.println(entry.getKey() + ": " + entry.getValue());
 		}
+		
+		FileManager fm = new FileManager(new File("error.txt"));
+		
+		ErrorGeneratorCore egc = new ErrorGeneratorCore(cass);
+		
+		for (Cas cas : egc.generateError()) {
+			try {
+				String triplet = "";
+				for (Triplet trip : cas.getP()) {
+					triplet += String.format("(%s, %s, %s) * ", trip.er, trip.ec, trip.ct.bi == 0 && trip.ct.bs == 0 ? "nct" : "[" + trip.ct.bi + ", " + trip.ct.bs + "]");
+				}
+				fm.writeLine(triplet + " " + ((Failing) cas.getS()).description);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 
 	}
 

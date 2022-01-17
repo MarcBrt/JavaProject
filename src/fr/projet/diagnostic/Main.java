@@ -47,6 +47,11 @@ public class Main {
 
 	}
 
+	/**
+	 * Analyse un fichier afin de retourner la distance entre 2 cas.
+	 * @param filename
+	 * @return List<Cas>
+	 */
 	public static List<Cas> analyse(String filename) {
 		FileManager fm = new FileManager(new File(filename));
 		int cptTriplet = 0;

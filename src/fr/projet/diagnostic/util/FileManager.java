@@ -47,26 +47,27 @@ public class FileManager {
 		this.bw = null;
 	}
 	
-	public String readLine() throws IOException {
-		
-		if (this.br == null) {
-			this.openReader();
-		}
-		
-		 String line = br.readLine();
-		 this.closeReader();
-		 return line;
-	}
-	
+	/**
+	 * Renvoi les lignes contenu dans le fichier sour forme de liste
+	 * @return List<String>
+	 * @throws IOException
+	 */
 	public List<String> readAllLine() throws IOException {
 		
 		if (this.br == null) {
 			this.openReader();
 		}
 	
-		return this.br.lines().collect(Collectors.toList());
+		List<String> lines = this.br.lines().collect(Collectors.toList());
+		this.closeReader();
+		return lines;
 	}
 	
+	/**
+	 * Permet d'écrire une nouvelle ligne dans un fichier
+	 * @param line
+	 * @throws IOException
+	 */
 	public void writeLine(String line) throws IOException {
 		
 		if (this.bw == null) {

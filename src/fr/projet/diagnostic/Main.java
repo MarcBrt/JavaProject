@@ -36,7 +36,7 @@ public class Main {
 		List<Cas> testedCase = analyse("test.txt");
 
 		// Ajout de l'instance du calculateur de similarite
-		int ligne = 3;
+		int ligne = 0;
 		SimilarityCore similarityCore = new SimilarityCore(groupes.get(testedCase.get(ligne).tripletCount()), testedCase.get(ligne));
 
 		System.out.println("Similarite des cas par cas: \n");

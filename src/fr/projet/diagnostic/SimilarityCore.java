@@ -32,6 +32,7 @@ public class SimilarityCore {
 
 		return sum / mt;
 	}
+	
     private float distanceTriplet(Triplet simiTriplet, Triplet newCaseTriplet) {
         float dateMax = Math.max( simiTriplet.ct.bs, newCaseTriplet.ct.bs );
 
@@ -44,13 +45,6 @@ public class SimilarityCore {
                 distanceEvenementEc( simiTriplet.ec, newCaseTriplet.ec) +
                 ( calculIpos(simiTriplet.ct, newCaseTriplet.ct) / dateMax );
     }
-
-	private float distanceTriplet(Triplet simiTriplet, Triplet newCaseTriplet) {
-		float dateMax = 100;
-		return distanceEvenementEr(simiTriplet.er, newCaseTriplet.er)
-				+ distanceEvenementEc(simiTriplet.ec, newCaseTriplet.ec)
-				+ (calculIpos(simiTriplet.ct, newCaseTriplet.ct) / dateMax);
-	}
 
 	private short distanceEvenementEr(String simiER, String newCaseER) {
 		if (simiER.contentEquals(newCaseER)) {

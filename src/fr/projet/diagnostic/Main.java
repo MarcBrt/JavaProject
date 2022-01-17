@@ -21,7 +21,7 @@ public class Main {
 		System.out.println(cass.size());
 		HashMap<Integer, List<Cas>> groupes = new HashMap<>();
 
-		for (Cas cas: cass) {
+		for (Cas cas : cass) {
 			int count = cas.tripletCount();
 			if (!groupes.containsKey(count)) {
 				groupes.put(count, new ArrayList<>());
@@ -29,12 +29,15 @@ public class Main {
 			groupes.get(count).add(cas);
 		}
 
-		for (Map.Entry<Integer, List<Cas>> entry : groupes.entrySet()) { System.out.println(entry.getKey() + ": " + entry.getValue().size()); }
+//		for (Map.Entry<Integer, List<Cas>> entry : groupes.entrySet()) {
+//			System.out.println(entry.getKey() + ": " + entry.getValue().size());
+//		}
 
 		List<Cas> testedCase = analyse("test.txt");
 
 		// Ajout de l'instance du calculateur de similarite
-		SimilarityCore similarityCore = new SimilarityCore(groupes.get(testedCase.get(3).tripletCount()), testedCase.get(3));
+		int ligne = 3;
+		SimilarityCore similarityCore = new SimilarityCore(groupes.get(testedCase.get(ligne).tripletCount()), testedCase.get(ligne));
 
 		System.out.println("Similarite des cas par cas: \n");
 
@@ -48,7 +51,6 @@ public class Main {
 		List<Cas> cass = new ArrayList<>();
 		try {
 			List<String> lines = fm.readAllLine();
-			System.out.println(lines.get(0));
 
 			for (String line : lines) {
 				List<Triplet> triplets = new ArrayList<>();

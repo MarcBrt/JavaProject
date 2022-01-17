@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 
 import fr.projet.diagnostic.entity.Cas;
 import fr.projet.diagnostic.entity.Intervalle;
@@ -18,10 +18,9 @@ public class Main {
 	public static void main(String[] args) {
 
 		List<Cas> cass = analyse("regle.txt");
-		System.out.println(cass.size());
 		HashMap<Integer, List<Cas>> groupes = new HashMap<>();
 
-		for (Cas cas: cass) {
+		for (Cas cas : cass) {
 			int count = cas.tripletCount();
 			if (!groupes.containsKey(count)) {
 				groupes.put(count, new ArrayList<>());
@@ -29,16 +28,22 @@ public class Main {
 			groupes.get(count).add(cas);
 		}
 
-		for (Map.Entry<Integer, List<Cas>> entry : groupes.entrySet()) { System.out.println(entry.getKey() + ": " + entry.getValue().size()); }
+//		for (Map.Entry<Integer, List<Cas>> entry : groupes.entrySet()) {
+//			System.out.println(entry.getKey() + ": " + entry.getValue().size());
+//		}
 
 		List<Cas> testedCase = analyse("test.txt");
 
 		// Ajout de l'instance du calculateur de similarite
-		SimilarityCore similarityCore = new SimilarityCore(groupes.get(testedCase.get(3).tripletCount()), testedCase.get(3));
+		int ligne = 0;
+		SimilarityCore similarityCore = new SimilarityCore(groupes.get(testedCase.get(ligne).tripletCount()), testedCase.get(ligne));
 
 		System.out.println("Similarite des cas par cas: \n");
 
-		similarityCore.tableau.forEach(System.out::println);
+		
+		for (Entry<Integer, Float> entry : similarityCore.tableau.entrySet()) {
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+		}
 
 	}
 
@@ -48,8 +53,8 @@ public class Main {
 		List<Cas> cass = new ArrayList<>();
 		try {
 			List<String> lines = fm.readAllLine();
-			System.out.println(lines.get(0));
 
+			int cptCas = 0;
 			for (String line : lines) {
 				List<Triplet> triplets = new ArrayList<>();
 				int cptIntervale = 0;
@@ -74,7 +79,7 @@ public class Main {
 					}
 					cptTriplet++;
 				}
-				Cas cas = new Cas(cptIntervale, triplets, new NotIdentified(2));
+				Cas cas = new Cas(cptCas++, triplets, new NotIdentified(2));
 				cass.add(cas);
 			}
 

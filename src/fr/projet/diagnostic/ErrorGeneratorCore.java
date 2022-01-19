@@ -52,7 +52,7 @@ public class ErrorGeneratorCore {
                     }
                 }
                 state.description = "=> Absence de " + cas.getP().get(i).ec;
-                Cas errorCase = new Cas(this.cptCasError, triplets, state);
+                Cas errorCase = new Cas(cas.id, triplets, state);
 
                 cptCasError++;
 

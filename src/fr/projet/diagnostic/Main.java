@@ -18,7 +18,8 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		List<Cas> cass = analyse("regle.txt");
+		File fileCas = new File("regle.txt");
+		List<Cas> cass = analyse(fileCas);
 		HashMap<Integer, List<Cas>> groupes = new HashMap<>();
 
 		for (Cas cas : cass) {
@@ -33,7 +34,8 @@ public class Main {
 //			System.out.println(entry.getKey() + ": " + entry.getValue().size());
 //		}
 
-		List<Cas> testedCase = analyse("test.txt");
+		File fileTestedCas = new File("test.txt");
+		List<Cas> testedCase = analyse(fileTestedCas);
 
 		// Ajout de l'instance du calculateur de similarite
 		int ligne = 0;
@@ -46,22 +48,39 @@ public class Main {
 			System.out.println(entry.getKey() + ": " + entry.getValue());
 		}
 		
-		FileManager fm = new FileManager(new File("error.txt"));
+		File file = new File("error.txt");
+		file.delete();
+		FileManager fm = new FileManager(file);
 		
 		ErrorGeneratorCore egc = new ErrorGeneratorCore(cass);
 		
+		try {
+			fm.writeLine("Erreur généré à partir du fichier " + fileCas.getAbsolutePath());
+			fm.writeLine("");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		int idCas = -1;
 		for (Cas cas : egc.generateError()) {
 			try {
 				String triplet = "";
+				if (idCas != cas.getId()) {
+					fm.writeLine("");
+					idCas = cas.getId();
+					fm.writeLine("Cas N°" + idCas);
+				}
 				for (Triplet trip : cas.getP()) {
 					triplet += String.format("(%s, %s, %s) * ", trip.er, trip.ec, trip.ct.bi == 0 && trip.ct.bs == 0 ? "nct" : "[" + trip.ct.bi + ", " + trip.ct.bs + "]");
 				}
+				triplet = triplet.substring(0, triplet.length() - 3);
 				fm.writeLine(triplet + " " + ((Failing) cas.getS()).description);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("Fichier des erreurs enregistré dans " + file.getAbsolutePath());
 		
 
 	}
@@ -71,8 +90,8 @@ public class Main {
 	 * @param filename
 	 * @return List<Cas>
 	 */
-	public static List<Cas> analyse(String filename) {
-		FileManager fm = new FileManager(new File(filename));
+	public static List<Cas> analyse(File file) {
+		FileManager fm = new FileManager(file);
 		int cptTriplet = 0;
 		List<Cas> cass = new ArrayList<>();
 		try {

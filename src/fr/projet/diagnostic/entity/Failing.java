@@ -10,4 +10,11 @@ public class Failing extends Etat {
 		super(idState);
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

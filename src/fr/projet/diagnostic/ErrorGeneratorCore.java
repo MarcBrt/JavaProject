@@ -9,7 +9,6 @@ public class ErrorGeneratorCore {
 
     private List<Cas> cass = new ArrayList<>();
     private List<Cas> errorCass = new ArrayList<>();
-    private int cptCasError = 0;
 
     /**
      * Constructeur de la classe ErrorGeneratorCore
@@ -38,10 +37,10 @@ public class ErrorGeneratorCore {
      */
     private void generateErrorForEachCase( Cas cas ) {
         int nbTriplet = cas.tripletCount();
-        Failing state = new Failing(1);
 
         if( nbTriplet != 1 ) {
             for(int i = 1; i < nbTriplet; i++) {
+                String ec_string = String.valueOf(cas.getP().get(i).ec);
                 List<Triplet> triplets = new ArrayList<>();
                 for(int indexTriplet = 0; indexTriplet < nbTriplet; indexTriplet++) {
                     if( indexTriplet != i ){
@@ -51,10 +50,9 @@ public class ErrorGeneratorCore {
                         triplets.add(generateTripletError(cas.p.get(indexTriplet)));
                     }
                 }
-                state.description = "=> Absence de " + cas.getP().get(i).ec;
-                Cas errorCase = new Cas(cas.id, triplets, state);
 
-                cptCasError++;
+                Cas errorCase = new Cas(cas.id, triplets, new Failing(cas.getS().idState) );
+                ((Failing)errorCase.getS()).setDescription( "=> Absence de " + ec_string);
 
                 this.errorCass.add( errorCase );
             }
